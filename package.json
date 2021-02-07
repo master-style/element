@@ -12,9 +12,6 @@
         "publish": "cd package && npm publish --access public",
         "release": "npm run pack && npm run publish"
     },
-    "files": [
-        "dist/index.js"
-    ],
     "license": "MIT",
     "private": false,
     "dependencies": {},
