@@ -1,9 +1,13 @@
 {
-    "name": "@master/dom",
+    "name": "@master/element",
     "version": "1.0.0",
     "license": "MIT",
     "private": false,
     "main": "index.js",
     "types": "index.d.ts",
-    "type": "module"
+    "type": "module",
+    "dependencies": {
+        "@master/dom": "^1.0.0",
+        "reflect-metadata": "^0.1.13"
+    }
 }

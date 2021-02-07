@@ -1,9 +1,8 @@
 {
-    "name": "dom",
+    "name": "element",
     "version": "0.0.0",
     "scripts": {
-        "ng": "ng",
-        "start": "ng serve",
+        "start": "npm i && cd package && npm i && cd ../ && npm run serve",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
