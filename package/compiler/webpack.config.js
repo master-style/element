@@ -7,13 +7,13 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = env => {
     const entryGlob = [
-        path.join('../src/app/**/index.{ts,js}')
+        path.join('../src/**/index.{ts,js}')
     ];
 
     return {
         entry: () => new Promise((resolve) => resolve(
             glob.sync(entryGlob).reduce((entrypoint, eachPath) => {
-                const parsePath = path.parse(path.relative(path.join('../src/app'), eachPath));
+                const parsePath = path.parse(path.relative(path.join('../src'), eachPath));
                 const filename = path.join(parsePath.dir, parsePath.name);
                 entrypoint[filename] = [eachPath];
                 return entrypoint;
@@ -30,7 +30,7 @@ module.exports = env => {
                     test: /\.ts$/,
                     loader: 'ts-loader',
                     options: {
-                        configFile: path.resolve('../tsconfig.compiler.json')
+                        configFile: path.resolve('../tsconfig.json')
                     }
                 },
                 {
@@ -48,17 +48,11 @@ module.exports = env => {
             ]
         },
         output: {
-            path: path.resolve('../package'),
+            path: path.resolve('../package/dist'),
             libraryTarget: 'umd'
         },
         plugins: [
-            new CleanWebpackPlugin({
-                cleanOnceBeforeBuildPatterns: [
-                    '**/*',
-                    '!package.json',
-                    '!.npmignore'
-                ]
-            }),
+            new CleanWebpackPlugin(),
             new Webpack.ProgressPlugin(),
             new BundleAnalyzerPlugin({
                 analyzerMode: 'static',

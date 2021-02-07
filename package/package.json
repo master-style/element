@@ -9,5 +9,8 @@
     "dependencies": {
         "@master/dom": "^1.0.0",
         "reflect-metadata": "^0.1.13"
-    }
+    },
+    "files": [
+        "dist/*"
+    ]
 }
