@@ -3,12 +3,7 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "outDir": "./out-tsc/app",
-        "types": [],
-        "paths": {
-            "reflect-metadata": [
-                "package/node_modules/reflect-metadata"
-            ]
-        }
+        "types": []
     },
     "files": [
         "src/main.ts",

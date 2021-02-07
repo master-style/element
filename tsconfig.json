@@ -15,6 +15,14 @@
         "lib": [
             "es2018",
             "dom"
-        ]
+        ],
+        "paths": {
+            "reflect-metadata": [
+                "package/node_modules/reflect-metadata"
+            ],
+            "@master/dom": [
+                "package/node_modules/@master/dom"
+            ]
+        }
     }
 }

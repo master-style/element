@@ -10,6 +10,13 @@ export function Element(tagName: string) {
     };
 }
 
+export interface MasterElement {
+    onConnected(): void;
+    onDisconnected(): void;
+    onAttrChanged(attrKey: string, value: any, oldValue: any): void;
+    render(): void;
+}
+
 export class MasterElement extends HTMLElement {
 
     readonly ready = false;
@@ -22,7 +29,7 @@ export class MasterElement extends HTMLElement {
     static shadow = true;
 
     emit = false;
-    
+
     on = on;
     off = off;
     attr = attr;
@@ -31,12 +38,6 @@ export class MasterElement extends HTMLElement {
     addClass = addClass;
     rmClass = rmClass;
     toggleClass = toggleClass;
-
-    onConnected() { };
-    onDisconnected() { };
-    onAttrChanged(attrKey: string, value: any, oldValue: any) { };
-    render() { };
-    removeRender() { };
 
     connectedCallback() {
         const attrsOptions = this.constructor['attrsOptions'];
@@ -96,7 +97,8 @@ export class MasterElement extends HTMLElement {
                 shadowRoot.appendChild(styleElement);
             }
         }
-        if (this.render) this.render();
+
+        this.render?.();
 
         Object.defineProperty(this, 'initial', {
             value: true
@@ -118,7 +120,7 @@ export class MasterElement extends HTMLElement {
             value: true
         })
         this.emit && this.dispatchEvent(readyEvent);
-        this.onConnected();
+        this.onConnected?.();
     };
 
     attributeChangedCallback(attrKey, oldValue, value) {
@@ -128,7 +130,7 @@ export class MasterElement extends HTMLElement {
         value = parseAttrValue(value, type);
         oldValue = parseAttrValue(oldValue, type);
         eachAttrOptions.set.call(this, value, true);
-        this.onAttrChanged(attrKey, value, oldValue);
+        this.onAttrChanged?.(attrKey, value, oldValue);
     };
 
     disconnectedCallback() {
@@ -138,8 +140,7 @@ export class MasterElement extends HTMLElement {
         Object.defineProperty(this, 'initial', {
             value: false
         })
-        this.removeRender();
-        this.onDisconnected();
+        this.onDisconnected?.();
     };
 
 }
