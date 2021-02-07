@@ -1,7 +1,8 @@
 import { Attr } from '../attr';
 import { ControlElement } from '../control';
-import { Template } from '@master/template';
 import { MasterElement } from '../core';
+
+import { Template } from '@master/template';
 
 type elementToken = string | { [key: string]: any };
 

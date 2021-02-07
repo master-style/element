@@ -1,6 +1,7 @@
 import { Attr } from '../attr';
 import { Event, EventEmitter } from '../event';
 import { MasterElement } from '../core';
+
 import { $ } from '@master/dom';
 
 const $body = $(document.body);
