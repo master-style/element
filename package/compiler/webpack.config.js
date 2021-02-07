@@ -22,7 +22,7 @@ module.exports = env => {
         mode: 'production',
         resolve: {
             extensions: ['.js', '.ts'],
-            modules: [path.resolve('../src'), path.resolve('../src', 'node_modules')]
+            modules: [path.resolve('../src'), path.resolve('../node_modules')]
         },
         module: {
             rules: [
@@ -48,7 +48,7 @@ module.exports = env => {
             ]
         },
         output: {
-            path: path.resolve('../package/dist'),
+            path: path.resolve('../dist'),
             libraryTarget: 'umd'
         },
         plugins: [
