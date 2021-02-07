@@ -1,4 +1,4 @@
-import { on, off, attr, toggleAttr, css, addClass, rmClass, toggleClass } from '../../../dom/package/dist';
+import { on, off, attr, toggleAttr, css, addClass, rmClass, toggleClass } from '@master/dom';
 import { AttributeOptions } from './attr';
 
 const readyEvent = new CustomEvent('ready');
