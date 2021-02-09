@@ -7,17 +7,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: cd
-          command: cd package
-      - run:
           name: install
-          command: npm i
+          command: cd package && npm i
       - run:
           name: build
-          command: webpack
+          command: cd package && npx webpack-cli
       - run:
           name: release
-          command: npm run semantic-release || true
+          command: cd package && npm run semantic-release || true
 
 workflows:
   version: 2
