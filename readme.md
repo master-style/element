@@ -12,6 +12,16 @@
 npm install @master/element @master/template
 ```
 
+### `tsconfig.json`
+```tsx
+{
+    "compilerOptions": {
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true
+    }
+}
+```
+
 ## Usage
 
 ```tsx
