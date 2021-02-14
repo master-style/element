@@ -3,10 +3,6 @@
     "version": "1.0.2",
     "license": "MIT",
     "description": "A lightweight, performant and run-time builder for web components.",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/master-style/element.git"
-    },
     "author": "Aoyue Design LTD.",
     "private": false,
     "main": "dist/index.js",
@@ -18,6 +14,17 @@
         "start": "npm i && cd doc && npm run start",
         "pack": "npm i && webpack",
         "semantic-release": " semantic-release"
+    },
+    "keywords": [
+        "ui",
+        "web components",
+        "typescript",
+        "custom elements",
+        "html element"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/master-style/element.git"
     },
     "dependencies": {
         "@master/dom": "~1.0.0",
