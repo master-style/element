@@ -8,7 +8,7 @@
 
 &nbsp;
 
-```shell
+```bash
 npm install @master/element @master/template
 ```
 
