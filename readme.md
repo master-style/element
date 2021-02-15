@@ -45,7 +45,6 @@ export class MyElement extends MasterElement {
     @Event()
     changeEmitter: EventEmitter;
 
-    // @master/template
     template = new Template(() => [
         'button', {
             class: 'blue'
@@ -76,20 +75,28 @@ Decorate property and attach the behaviors of attribute
 
 ```ts
 interface AttributeOptions {
+
     // specify attribute key
     key?: string;
+
     // whether or not the value of the attribute should be observed
     observe?: boolean;
+
     // whether or not the value of the attribute should be reflected into the DOM
     reflect?: boolean;
+
     // whether or not the render() should be called when value updated
     render?: boolean;
+
     // parse and return value before value updated
     parse?: (element: any, value: any, oldValue?: any) => any;
+
     // callback after value updated
     onUpdate?: (element: any, value: any, oldValue?: any) => void;
+
     // callback after value updated and render() called
     onRender?: (element: any) => any;
+
     readonly propKey?: string;
     readonly set?: Function;
     readonly type?: string;
@@ -101,14 +108,19 @@ Decorate property and attach some behaviors
 
 ```ts
 interface PropertyOptions {
+
     // whether or not the render() should be called when value updated
     render?: boolean;
+
     // parse and return value before value updated
     parse?: (element: any, value: any, oldValue?: any) => any;
+
     // callback after value updated
     onUpdate?: (element: any, value: any, oldValue?: any) => void;
+
     // callback after value updated and render() called
     onRender?: (element: any) => any;
+
     readonly type?: string;
 }
 ```
@@ -118,12 +130,16 @@ Decorate property as custom event
 
 ```ts
 interface EventOptions {
+
     // whether or not the event bubbles up through the DOM
     bubbles?: boolean;
+
     // whether or not the event is cancelable
     cancelable?: boolean;
+
     // whether or not the event can bubble across the boundary between the shadow DOM and the regular DOM
     composed?: boolean;
+
     // Event if the value of .emit is set to false, it's enforced to emit
     force?: boolean;
 }
@@ -140,18 +156,19 @@ export class MasterElement extends HTMLElement {
 
     // connecting: false (render) -> true (before update)
     readonly initial: boolean = false;
+
     // connecting: false (render) -> false (before update) -> true (after update)
     readonly ready: boolean = false;
 
     // your css style
     static css: string;
+
     // whehter or not shadow dom should be enabled
     static shadow = true;
 
     // whether or not all of event emitters should be emitted
     emit = false;
 
-    // @master/dom
     on = on;
     off = off;
     attr = attr;
