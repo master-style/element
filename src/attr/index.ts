@@ -37,12 +37,12 @@ export function Attr(options?: AttributeOptions) {
             set(value: any, settedAttr?: boolean) {
                 const oldValue = this[_propKey];
                 if (parse) {
-                    value = parse.call(this, value, oldValue);
+                    value = parse.call(this, this, value, oldValue);
                 }
                 if (value === oldValue) return;
                 this[_propKey] = value;
                 if (this.initial) {
-                    options.onUpdate?.call(this, value, oldValue);
+                    options.onUpdate?.call(this, this, value, oldValue);
                     if (options.reflect && !settedAttr) {
                         if (options.type === 'Boolean') {
                             this.toggleAttribute(attrKey, !!value);
@@ -52,7 +52,7 @@ export function Attr(options?: AttributeOptions) {
                     }
                     if (options.render && this.render) {
                         this.render();
-                        options.onRender?.call(this)
+                        options.onRender?.call(this, this)
                     }
                 }
             }

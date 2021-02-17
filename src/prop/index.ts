@@ -26,15 +26,15 @@ export function Prop(options?: PropertyOptions) {
             set(value: any) {
                 const oldValue = this[_key];
                 if (parse) {
-                    value = parse.call(this, value, oldValue);
+                    value = parse.call(this, this, value, oldValue);
                 }
                 if (value === oldValue) return;
                 this[_key] = value;
                 if (this.initial) {
-                    options.onUpdate?.call(this, value, oldValue);
+                    options.onUpdate?.call(this, this, value, oldValue);
                     if (options.render && this.render) {
                         this.render();
-                        options.onRender?.call(this)
+                        options.onRender?.call(this, this)
                     }
                 }
             }
