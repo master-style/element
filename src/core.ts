@@ -49,7 +49,7 @@ export class MasterElement extends HTMLElement {
             for (const eachPropKey in propsOptions) {
                 const eachPropOption: AttributeOptions = propsOptions[eachPropKey];
                 const eachPropValue = this['_' + eachPropKey];
-                eachPropOption.onUpdate?.(this, eachPropValue);
+                eachPropOption.onUpdate?.call(this, eachPropValue);
             }
         }
         if (attrsOptions) {
@@ -108,7 +108,7 @@ export class MasterElement extends HTMLElement {
                 const eachAttrOptions: AttributeOptions = attrsOptions[eachAttrKey];
                 const eachPropKey = eachAttrOptions.propKey;
                 const eachPropValue = this['_' + eachPropKey];
-                eachAttrOptions.onUpdate?.(this, eachPropValue);
+                eachAttrOptions.onUpdate?.call(this, eachPropValue);
             }
         }
 
