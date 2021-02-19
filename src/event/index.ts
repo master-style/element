@@ -1,10 +1,12 @@
 
-export function Event(options?: {
+export interface EventOptions {
     bubbles?: boolean;
     cancelable?: boolean;
     composed?: boolean;
     force?: boolean;
-}) {
+}
+
+export function Event(options?: EventOptions) {
     return (target, propKey: string): any => {
         const name = propKey.split('Emitter')[0];
         const event = new CustomEvent(name, options);

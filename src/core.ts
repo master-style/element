@@ -19,12 +19,13 @@ export interface MasterElement {
 
 export class MasterElement extends HTMLElement {
 
-    readonly ready = false;
-    readonly initial = false;
+    readonly ready: boolean = false;
+    readonly initial: boolean = false;
 
-    static observedAttributes = [];
-    static attrsOptions = {};
-    static propsOptions = {};
+    static readonly observedAttributes = [];
+    static readonly attrsOptions = {};
+    static readonly propsOptions = {};
+
     static css: string;
     static shadow = true;
 
@@ -48,7 +49,7 @@ export class MasterElement extends HTMLElement {
             for (const eachPropKey in propsOptions) {
                 const eachPropOption: AttributeOptions = propsOptions[eachPropKey];
                 const eachPropValue = this['_' + eachPropKey];
-                eachPropOption.update?.(this, eachPropValue);
+                eachPropOption.onUpdate?.call(this, this, eachPropValue);
             }
         }
         if (attrsOptions) {
@@ -100,25 +101,18 @@ export class MasterElement extends HTMLElement {
 
         this.render?.();
 
-        Object.defineProperty(this, 'initial', {
-            value: true
-        })
+        (this as any).initial = true;
 
         if (attrsOptions) {
             for (const eachAttrKey in attrsOptions) {
                 const eachAttrOptions: AttributeOptions = attrsOptions[eachAttrKey];
                 const eachPropKey = eachAttrOptions.propKey;
                 const eachPropValue = this['_' + eachPropKey];
-                const eachUpdate = eachAttrOptions.update;
-                if (eachUpdate) {
-                    eachUpdate(this, eachPropValue);
-                }
+                eachAttrOptions.onUpdate?.call(this, this, eachPropValue);
             }
         }
 
-        Object.defineProperty(this, 'ready', {
-            value: true
-        })
+        (this as any).ready = true;
         this.emit && this.dispatchEvent(readyEvent);
         this.onConnected?.();
     };

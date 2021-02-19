@@ -11,26 +11,24 @@ export interface AttributeOptions {
     key?: string;
     observe?: boolean;
     reflect?: boolean;
-    propKey?: string;
-    set?: Function;
     render?: boolean;
-    type?: string;
-    update?: (element: any, value: any, oldValue?: any) => void;
     parse?: (element: any, value: any, oldValue?: any) => any;
+    onUpdate?: (element: any, value: any, oldValue?: any) => void;
     onRender?: (element: any) => any;
+    readonly propKey?: string;
+    readonly set?: Function;
+    readonly type?: string;
 }
 
 export function Attr(options?: AttributeOptions) {
     options = { ...DEFAULT_ATTR_OPTION, ...options };
     return (target, propKey: string): any => {
-        options.type = Reflect.getMetadata('design:type', target, propKey).name;
-        options.propKey = propKey;
+        (options as any).type = Reflect.getMetadata('design:type', target, propKey).name;
+        (options as any).propKey = propKey;
         const _propKey = '_' + propKey;
         const attrKey = options.key = (options.key || camelToKebabCase(propKey));
         const constructor = target.constructor;
-        const update = options.update;
         const parse = options.parse;
-        const onRender = options.onRender;
         const descriptor = {
             enumerable: false,
             get() {
@@ -39,12 +37,12 @@ export function Attr(options?: AttributeOptions) {
             set(value: any, settedAttr?: boolean) {
                 const oldValue = this[_propKey];
                 if (parse) {
-                    value = parse(this, value, oldValue);
+                    value = parse.call(this, this, value, oldValue);
                 }
                 if (value === oldValue) return;
                 this[_propKey] = value;
                 if (this.initial) {
-                    update?.(this, value, oldValue);
+                    options.onUpdate?.call(this, this, value, oldValue);
                     if (options.reflect && !settedAttr) {
                         if (options.type === 'Boolean') {
                             this.toggleAttribute(attrKey, !!value);
@@ -54,13 +52,13 @@ export function Attr(options?: AttributeOptions) {
                     }
                     if (options.render && this.render) {
                         this.render();
-                        onRender?.(this)
+                        options.onRender?.call(this, this)
                     }
                 }
             }
         };
 
-        options.set = descriptor.set;
+        (options as any).set = descriptor.set;
         if (options.observe) {
             constructor.observedAttributes = Object.assign([], constructor.observedAttributes);
             constructor.observedAttributes.push(attrKey);

@@ -10,7 +10,7 @@ module.exports = env => {
     const entryGlob = [
         'src/**/index.{ts,js}'
     ];
-
+    
     return {
         entry: glob.sync(entryGlob).reduce((entrypoint, eachPath) => {
             const parsePath = path.parse(path.relative(path.join('./src'), eachPath));
