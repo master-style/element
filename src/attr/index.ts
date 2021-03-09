@@ -47,7 +47,11 @@ export function Attr(options?: AttributeOptions) {
                         if (options.type === 'Boolean') {
                             this.toggleAttribute(attrKey, !!value);
                         } else {
-                            this.setAttribute(attrKey, value);
+                            if (value === null) {
+                                this.removeAttribute(attrKey);
+                            } else {
+                                this.setAttribute(attrKey, value);
+                            }
                         }
                     }
                     if (options.render && this.render) {
