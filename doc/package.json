@@ -11,7 +11,9 @@
     },
     "license": "MIT",
     "private": false,
-    "dependencies": {},
+    "dependencies": {
+        "@master/ui": "^1.0.0-alpha.32"
+    },
     "devDependencies": {
         "@angular-devkit/build-angular": "~0.1101.4",
         "@angular/animations": "~11.1.2",
