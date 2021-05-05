@@ -52,11 +52,12 @@ module.exports = env => {
             ]
         },
         output: {
+            clean: true,
             path: path.resolve('./dist'),
+            globalObject: 'this',
             libraryTarget: 'umd'
         },
         plugins: [
-            new CleanWebpackPlugin(),
             new Webpack.ProgressPlugin(),
             new BundleAnalyzerPlugin({
                 analyzerMode: 'static',
