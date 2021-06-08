@@ -4,11 +4,13 @@ import 'reflect-metadata';
 const DEFAULT_ATTR_OPTION = {
     reflect: true,
     observe: true,
-    render: true
+    render: true,
+    order: 0
 };
 
 export interface AttributeOptions {
     key?: string;
+    order?: number;
     observe?: boolean;
     reflect?: boolean;
     render?: boolean;
@@ -66,6 +68,7 @@ export function Attr(options?: AttributeOptions) {
         if (options.observe) {
             constructor.observedAttributes = Object.assign([], constructor.observedAttributes);
             constructor.observedAttributes.push(attrKey);
+            constructor.observedAttributes.sort((a, b) => a.order - b.order);
         };
         // 必須 assign，否則會污染到繼承的父元素
         constructor.attrsOptions = Object.assign({}, constructor.attrsOptions);
