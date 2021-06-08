@@ -4,13 +4,11 @@ import 'reflect-metadata';
 const DEFAULT_ATTR_OPTION = {
     reflect: true,
     observe: true,
-    render: true,
-    order: 0
+    render: true
 };
 
 export interface AttributeOptions {
     key?: string;
-    order?: number;
     observe?: boolean;
     reflect?: boolean;
     render?: boolean;
@@ -37,6 +35,7 @@ export function Attr(options?: AttributeOptions) {
                 return this[_propKey];
             },
             set(value: any, settedAttr?: boolean) {
+                console.log(propKey, value);
                 const oldValue = this[_propKey];
                 if (parse) {
                     value = parse.call(this, this, value, oldValue);
@@ -65,14 +64,15 @@ export function Attr(options?: AttributeOptions) {
         };
 
         (options as any).set = descriptor.set;
-        if (options.observe) {
-            constructor.observedAttributes = Object.assign([], constructor.observedAttributes);
-            constructor.observedAttributes.push(attrKey);
-            constructor.observedAttributes.sort((a, b) => a.order - b.order);
-        };
+
         // 必須 assign，否則會污染到繼承的父元素
         constructor.attrsOptions = Object.assign({}, constructor.attrsOptions);
         constructor.attrsOptions[attrKey] = options;
+
+        if (options.observe) {
+            constructor.observedAttributes = Object.assign([], constructor.observedAttributes);
+            constructor.observedAttributes.push(attrKey);
+        };
 
         return descriptor;
     };
