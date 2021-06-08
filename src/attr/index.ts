@@ -35,7 +35,6 @@ export function Attr(options?: AttributeOptions) {
                 return this[_propKey];
             },
             set(value: any, settedAttr?: boolean) {
-                console.log(propKey, value);
                 const oldValue = this[_propKey];
                 if (parse) {
                     value = parse.call(this, this, value, oldValue);
